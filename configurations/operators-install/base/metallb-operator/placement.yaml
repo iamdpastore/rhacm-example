@@ -1,0 +1,14 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: placement-install-metallb
+  namespace: policies
+spec:
+  clusterSelectors: 
+    matchExpressions:
+     - key: name
+       operator: In
+       values:
+         - fcaktt01
+         - staging-01
+

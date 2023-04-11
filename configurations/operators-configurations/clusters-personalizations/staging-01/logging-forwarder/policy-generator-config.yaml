@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: logging-forwarder-config-collaudo-tn-01 
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "staging-01"
+  remediationAction: enforce
+policies:
+  - name: logging-forwarder-config-collaudo-tn-01
+    manifests:
+      - path: logging-forwarder.yaml
+

@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: ingress-controller
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      vendor: "OpenShift"
+  remediationAction: enforce
+policies:
+  - name: ingress-controller
+    manifests:
+      - path: ingress-controller.yaml 
+

@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: proxy 
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      vendor: "OpenShift"
+  remediationAction: enforce
+policies:
+  - name: proxy
+    manifests:
+      - path: proxy.yaml 
+

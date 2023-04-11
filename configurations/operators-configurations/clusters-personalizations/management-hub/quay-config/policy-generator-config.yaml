@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: quay-config-instance 
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "local-cluster"
+  remediationAction: enforce
+policies:
+  - name: quay-config-instance
+    manifests:
+      - path: quay-config.yaml
+

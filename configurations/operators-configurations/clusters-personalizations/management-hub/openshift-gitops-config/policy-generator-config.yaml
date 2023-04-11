@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: openshift-gitops-config
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "local-cluster" 
+  remediationAction: enforce
+policies:
+  - name: openshift-gitops-config
+    manifests:
+      - path: openshift-gitops-config.yaml 
+

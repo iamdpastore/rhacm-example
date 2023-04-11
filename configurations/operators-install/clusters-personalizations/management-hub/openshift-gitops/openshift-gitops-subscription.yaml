@@ -1,0 +1,21 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: openshift-gitops-operatorgroup
+  namespace: openshift-gitops
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-gitops-operator
+  namespace: openshift-gitops
+spec:
+  channel: stable 
+  name: openshift-gitops-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  config:
+    env:
+      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
+        value: 'true'
+

@@ -1,0 +1,184 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: argocd
+  namespace: openshift-gitops
+spec:
+  controller:
+    processors: {}
+    resources:
+      limits:
+        cpu: "2"
+        memory: 2Gi
+      requests:
+        cpu: 250m
+        memory: 1Gi
+    sharding: {}
+  dex:
+    openShiftOAuth: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  grafana:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  ha:
+    enabled: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  initialSSHKnownHosts: {}
+  applicationSet: {}
+  prometheus:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  rbac:
+    defaultPolicy: ""
+    policy: |
+      g, cluster-ocp-management-hub-ruolo-cluster-admin, role:admin
+      g, system:cluster-admins, role:admin
+    scopes: '[groups]'
+  redis:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 128Mi
+  repo:
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+  server:
+    autoscale:
+      enabled: false
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: false
+    insecure: true
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 125m
+        memory: 128Mi
+    route:
+      enabled: true
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+    service:
+      type: ""
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cbm-infra-applications
+  namespace: openshift-gitops
+spec:
+  description: Progetto per gestire le CR lato Infra delle applicazioni CBM
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: '*'
+  sourceRepos:
+  - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cbm-developer-applications
+  namespace: openshift-gitops
+spec:
+  description: Progetto per consentire agli sviluppatori della CBM di poter definire
+    dell CR specifiche delle applicazioni da loro sviluppate.
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: '*'
+  namespaceResourceWhitelist:
+  - group: apps
+    kind: Deployment
+  - group: ""
+    kind: Service
+  - group: ""
+    kind: ConfigMap
+  - group: apps
+    kind: ReplicaSet
+  - group: ""
+    kind: Pod
+  sourceRepos:
+  - '*'
+---
+apiVersion: pipelines.openshift.io/v1alpha1
+kind: GitopsService
+metadata:
+  name: cluster
+spec:
+  runOnInfra: true
+  tolerations:
+    - key: node-role.kubernetes.io/infra
+      effect: NoSchedule
+      operator: Exists
+    - key: node-role.kubernetes.io/infra
+      effect: NoExecute
+      operator: Exists
+
+---
+apiVersion: v1
+data:
+  password: Z2xwYXQtNm52UE54YVEzV245V25NWi1yZTQ=
+  url: aHR0cHM6Ly9naXRsYWIuc2Vydml6aS5hbGxpdHVkZS5pdC9rOHMtcmVzb3VyY2Vz
+  username: VFUtb3BlbnNoaWZ0LWdpdG9wcy11c2Vy
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repo-creds
+  name: repository-credential-template-gitlab-k8s-resources
+  namespace: openshift-gitops
+type: Opaque
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: helm-fluentd-forwarder
+  namespace: openshift-gitops
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: '*'
+  sourceRepos:
+  - '*'
+
+

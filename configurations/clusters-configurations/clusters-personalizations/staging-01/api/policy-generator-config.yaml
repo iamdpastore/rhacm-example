@@ -1,0 +1,16 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: api-config-staging-01
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: 'staging-01'
+  remediationAction: enforce
+  complianceType: "musthave"
+policies:
+  - name: api-config-staging-01
+    manifests:
+      - path: api.yaml 
+

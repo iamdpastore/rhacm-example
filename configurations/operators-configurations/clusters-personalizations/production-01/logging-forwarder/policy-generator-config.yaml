@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: logging-forwarder-config-produzione-tn-01 
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "production-01"
+  remediationAction: enforce
+policies:
+  - name: logging-forwarder-config-produzione-tn-01
+    manifests:
+      - path: logging-forwarder.yaml
+

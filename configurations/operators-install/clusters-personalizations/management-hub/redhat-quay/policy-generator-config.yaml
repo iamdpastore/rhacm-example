@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: install-quay
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: local-cluster 
+  remediationAction: enforce
+policies:
+  - name: install-quay
+    manifests:
+      - path: redhat-quay-subsription.yaml
+

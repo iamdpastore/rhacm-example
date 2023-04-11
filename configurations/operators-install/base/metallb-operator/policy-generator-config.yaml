@@ -1,0 +1,16 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: install-metallb
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      metallb: 'true'
+
+  remediationAction: enforce
+policies:
+  - name: install-metallb
+    manifests:
+      - path: metallb-operator.yaml
+

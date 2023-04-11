@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: logging-config
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      vendor: "OpenShift"
+  remediationAction: enforce
+policies:
+  - name: logging-config
+    manifests:
+      - path: logging.yaml
+

@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: install-external-secrets
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      vendor: "OpenShift"
+  remediationAction: enforce
+policies:
+  - name: install-external-secrets
+    manifests:
+      - path:  external-secret-operator.yaml

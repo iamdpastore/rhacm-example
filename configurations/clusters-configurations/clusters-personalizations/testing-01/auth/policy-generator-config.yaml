@@ -1,0 +1,16 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: auth-config
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "testing-01"
+  remediationAction: enforce
+  complianceType: "mustonlyhave"
+policies:
+  - name: auth-config
+    manifests:
+      - path: auth.yaml 
+

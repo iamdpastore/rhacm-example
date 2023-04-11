@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: groups-sync-ldap-ca-config
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      vendor: "OpenShift"
+  remediationAction: enforce
+policies:
+  - name: groups-sync-ldap-ca-secrets-config
+    manifests:
+      - path: ldap-ca.yaml
+

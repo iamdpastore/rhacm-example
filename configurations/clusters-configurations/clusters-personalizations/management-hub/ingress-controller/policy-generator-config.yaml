@@ -1,0 +1,16 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: ingress-management-hub
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: 'local-cluster'
+  remediationAction: enforce
+  complianceType: "musthave"
+policies:
+  - name: ingress-config-management-hub
+    manifests:
+      - path: ingress-controller.yaml 
+

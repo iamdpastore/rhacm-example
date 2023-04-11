@@ -1,0 +1,15 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: groups-sync-config
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "testing-01"
+  remediationAction: enforce
+policies:
+  - name: groups-sync-config
+    manifests:
+      - path: groups-sync-config.yaml 
+

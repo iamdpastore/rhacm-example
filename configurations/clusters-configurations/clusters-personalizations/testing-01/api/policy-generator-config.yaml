@@ -1,0 +1,16 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: api-config-testing-01
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: 'testing-01'
+  remediationAction: enforce
+  complianceType: "musthave"
+policies:
+  - name: api-config-testing-01
+    manifests:
+      - path: api.yaml 
+

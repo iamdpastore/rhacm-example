@@ -1,0 +1,16 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: auth-config-gestione-tn-01
+policyDefaults:
+  namespace: policies
+  placement:
+    clusterSelectors:
+      name: "local-cluster"
+  remediationAction: enforce
+  complianceType: "mustonlyhave"
+policies:
+  - name: auth-config-gestione-tn-01
+    manifests:
+      - path: auth.yaml 
+
